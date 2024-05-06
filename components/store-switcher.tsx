@@ -46,9 +46,6 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
     (item) => item.value === params.storeId
   );
 
-  console.log("formatted item", formattedItems);
-  console.log("current store", currentStore);
-
   const onStoreSelect = (store: { value: string; label: string }) => {
     setOpen(false);
     router.push(`/${store.value}`);

@@ -16,13 +16,20 @@ import Logout from "./logout";
 
 const Navbar = async () => {
   const session = await auth();
-  if (!session) {
+  const email = session?.user?.email!;
+
+  const users = await prismadb.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  if (!users?.id) {
     redirect("/Login");
   }
 
   const store = await prismadb.store.findMany({
     where: {
-      userId: session.user?.id,
+      userId: users.id,
     },
   });
 

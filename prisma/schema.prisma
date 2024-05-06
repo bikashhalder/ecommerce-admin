@@ -68,7 +68,7 @@ model VerificationToken {
 model Store {
   id          String  @id @default(uuid())
   name        String
-  userId      String?
+  userId      String
   billboards  Billboard[] @relation("StoreToBillboard")
   categories  Category[] @relation("StoreToCategory")
   products    Product[] @relation("StoreToProduct")

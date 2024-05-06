@@ -3,7 +3,6 @@ import AlertModal from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Heading } from "@/components/ui/heading";
-import ImageUpload from "@/components/ui/image-upload";
 import MultipleImageUpload from "@/components/ui/multiple-image-upload";
 import {
   Select,
@@ -104,9 +103,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
         } else {
           await axios.post(`/api/${params.storeId}/products`, updatedValues);
         }
-        router.refresh();
         setLoading(false);
         toast.success(toastMessage);
+        router.push(`/${params.storeId}/products`);
       } catch (error) {
         toast.error("Something went wrong");
       }

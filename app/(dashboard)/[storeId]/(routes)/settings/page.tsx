@@ -12,15 +12,21 @@ interface SettingsPageProps {
 
 const SettingsPage: React.FC<SettingsPageProps> = async ({ params }) => {
   const session = await auth();
+  const email = session?.user?.email!;
 
-  if (!session) {
+  const users = await prismadb.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  if (!users?.id) {
     redirect("/Login");
   }
 
   const store = await prismadb.store.findFirst({
     where: {
       id: params.storeId,
-      userId: session.user?.id,
+      userId: users.id,
     },
   });
 

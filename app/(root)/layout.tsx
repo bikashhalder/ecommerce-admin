@@ -4,14 +4,23 @@ import { redirect } from "next/navigation";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
-  const userId = session?.user?.id!;
-  if (!session) {
+  const email = session?.user?.email!;
+
+  console.log("email", email);
+
+  const users = await prismadb.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  if (!users?.id) {
     redirect("/Login");
   }
 
   const store = await prismadb.store.findFirst({
     where: {
-      userId,
+      userId: users.id,
     },
   });
 

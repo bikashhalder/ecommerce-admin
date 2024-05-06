@@ -91,17 +91,10 @@ const Login = () => {
     },
   });
 
-  const socialAction = (action: string) => {
+  const socialAction = async (action: string) => {
     setIsLoading(true);
-    signIn(action, { redirect: false }).then((callback) => {
-      if (callback?.error) {
-        toast.error("Invalid Credentials");
-      }
-      if (callback?.ok && !callback.error) {
-        toast.success("Logged In");
-        router.push("/");
-      }
-    });
+    ("use server");
+    await signIn(action, { redirectTo: "/" });
     setIsLoading(false);
   };
 

@@ -30,14 +30,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     toast.success("Product Id copied to the clipboard");
   };
 
-  console.log("data id", data.id);
-
   const onDelete = async () => {
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/products/${data.id}`);
-      router.refresh();
       toast.success("Product Deleted");
+      router.refresh();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong, Try agiain");

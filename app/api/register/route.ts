@@ -11,6 +11,8 @@ export async function POST(req: Request) {
       return new NextResponse("Something is Missing", { status: 400 });
     }
 
+    console.log("login body", body);
+
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const user = await prismadb.user.create({
