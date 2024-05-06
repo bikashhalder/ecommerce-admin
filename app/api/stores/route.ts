@@ -10,17 +10,18 @@ export async function POST(req: Request) {
 
     const email = session?.user?.email!;
 
+    if (!session) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
     const users = await prismadb.user.findUnique({
       where: {
         email,
       },
     });
 
-    console.log("users", users);
-
     const userId = users?.id;
-    console.log("user id", userId);
-    console.log("session", session);
+
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

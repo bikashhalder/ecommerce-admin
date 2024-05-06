@@ -19,7 +19,7 @@ const SettingsPage: React.FC<SettingsPageProps> = async ({ params }) => {
       email,
     },
   });
-  if (!users?.id) {
+  if (!users?.id || !email) {
     redirect("/Login");
   }
 
