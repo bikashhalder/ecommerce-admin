@@ -14,7 +14,7 @@ const SettingsPage: React.FC<SettingsPageProps> = async ({ params }) => {
   const session = await auth();
   const email = session?.user?.email!;
 
-  const user = await prismadb.user.findFirst({
+  const user = await prismadb.user.findUnique({
     where: {
       email,
     },

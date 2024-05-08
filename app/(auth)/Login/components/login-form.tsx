@@ -21,10 +21,6 @@ const validate = (values: FormValues) => {
   // Validate password
   if (!values.password) {
     errors.password = "Password is required";
-  } else if (values.password.length < 6) {
-    errors.password = "Password must be at least 6 characters long";
-  } else if (values.password.length > 30) {
-    errors.password = "Password must be less than 30 characters long";
   }
 
   return errors;

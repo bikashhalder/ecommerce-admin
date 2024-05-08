@@ -18,7 +18,7 @@ const Navbar = async () => {
   const session = await auth();
   const email = session?.user?.email!;
 
-  const users = await prismadb.user.findUnique({
+  const users = await prismadb.user.findFirst({
     where: {
       email,
     },
@@ -33,6 +33,18 @@ const Navbar = async () => {
     },
   });
 
+  function convertToInitials(word: string): string {
+    const words = word.split(" ");
+    let initials = "";
+
+    for (const w of words) {
+      initials += w.charAt(0);
+    }
+
+    // Return the initials
+    return initials;
+  }
+
   return (
     <div className='border-b'>
       <div className='flex h-16 items-center px-4'>
@@ -42,7 +54,9 @@ const Navbar = async () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar>
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback>
+                  {convertToInitials(users.name!).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-20'>
