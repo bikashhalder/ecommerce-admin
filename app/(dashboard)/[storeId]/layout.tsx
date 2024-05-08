@@ -1,4 +1,3 @@
-// import { auth } from "@/auth";
 import { auth } from "@/auth";
 import Navbar from "@/components/navbar";
 import prismadb from "@/lib/prismadb";

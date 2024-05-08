@@ -14,13 +14,15 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
   //   },
   // });
 
-  if (!session?.user?.id) {
+  console.log("session", session);
+
+  if (!session) {
     redirect("/Login");
   }
 
   const store = await prismadb.store.findFirst({
     where: {
-      userId: session.user.id,
+      userId: session.user?.id,
     },
   });
 

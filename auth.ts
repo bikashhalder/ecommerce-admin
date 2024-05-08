@@ -45,8 +45,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
         });
 
-        console.log("auth user", user);
-
         if (!user || !user.hashedPassword) {
           throw new Error("Invalid Credentials");
         }
@@ -59,7 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Invalid Credentials");
         }
 
-        return user;
+        return { name: user.name, email: user.email, id: user.id };
       },
     }),
   ],

@@ -7,22 +7,23 @@ export async function POST(req: Request) {
     const session = await auth();
     const body = await req.json();
     const { name } = body;
-
+    console.log("name", body);
+    console.log("modal sess", session);
     const email = session?.user?.email!;
 
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const users = await prismadb.user.findUnique({
+    const users = await prismadb.user.findFirst({
       where: {
         email,
       },
     });
 
-    const userId = users?.id;
+    // const userId = session.user?.id;
 
-    if (!userId) {
+    if (!users) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -33,7 +34,7 @@ export async function POST(req: Request) {
     const store = await prismadb.store.create({
       data: {
         name,
-        userId,
+        userId: users.id,
       },
     });
     console.log("Stores--", store);
